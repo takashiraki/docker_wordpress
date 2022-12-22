@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+ db:
+  image: mariadb:latest
+  volumes:
+   - ./infra/mariadb/data:/var/lib/mysql
+   - ./infra/mariadb/my.cnf:/etc/mysql/my.cnf
+  ports:
+   - 13306:3306
+  
+  environment:
+   MARIADB_ROOT_PASSWORD: rootpw
+   MARIADB_DATABASE: sLaravel
+   MARIADB_USER: user
+   MARIADB_PASSWORD: password
+   TZ: 'Asia/Tokyo'
+
+ wordpress:
+  image: wordpress:latest
+  #container_name: "wordpress"
+  volumes:
+    - ./wordpress:/var/www/html
+    - ./infra/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+  restart: always
+  depends_on:
+    - db
+  ports:
+    - 9000:80
+  environment:
+    WORDPRESS_DB_HOST: db:3306
+    WORDPRESS_DB_NAME: sLaravel
+    WORDPRESS_DB_USER: root
+    WORDPRESS_DB_PASSWORD: rootpw
+
+ phpmyadmin:
+  image: phpmyadmin:latest
+  ports:
+   - 8888:80
+  depends_on:
+   - db

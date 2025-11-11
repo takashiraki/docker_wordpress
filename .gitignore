@@ -1,3 +1,4 @@
 .env
 /wordpress/*
 !/wordpress/.gitkeep
+.devcontainer/devcontainer.json

@@ -3,7 +3,7 @@
     "dockerComposeFile": [
         "./../docker-compose.yml"
     ],
-    "service": "php",
+    "service": "wordpress",
     "workspaceFolder": "/var/www/html",
     "customizations": {
         "vscode": {

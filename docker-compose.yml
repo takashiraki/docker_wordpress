@@ -1,10 +1,11 @@
 version: '3.8'
 services:
   wordpress:
-    image: wordpress:latest
-    container_name: "my_wordpress"
+    build: ./Infra/wordpress
+    container_name: ${WORDPRESS_NAME}
     volumes:
       - ./wordpress:/var/www/html
+      - ./Infra/wordpress/msmtprc:/etc/msmtprc
     environment:
       WORDPRESS_DB_HOST: ${MY_WORDPRESS_HOST}
       WORDPRESS_DB_USER: ${MY_WORDPRESS_USER}
